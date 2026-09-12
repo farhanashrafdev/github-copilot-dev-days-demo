@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { validateRegistration, type RegistrationErrors } from '@/lib/registration';
 
 type Submission = {
   ownerName: string;
@@ -19,10 +20,19 @@ export function RegisterForm() {
   const [ownerName, setOwnerName] = useState('');
   const [email, setEmail] = useState('');
   const [petName, setPetName] = useState('');
+  const [errors, setErrors] = useState<RegistrationErrors>({});
   const [submission, setSubmission] = useState<Submission | null>(null);
 
   function handleSubmit(formEvent: React.FormEvent<HTMLFormElement>) {
     formEvent.preventDefault();
+
+    const nextErrors = validateRegistration({ ownerName, email, petName });
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
     setSubmission({ ownerName, email, petName });
   }
 
@@ -68,8 +78,19 @@ export function RegisterForm() {
           value={ownerName}
           onChange={(changeEvent) => setOwnerName(changeEvent.target.value)}
           placeholder="Priya Sharma"
-          className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-2 focus:outline-offset-0 focus:outline-indigo-500"
+          aria-invalid={errors.ownerName ? true : undefined}
+          aria-describedby={errors.ownerName ? 'ownerName-error' : undefined}
+          className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-2 focus:outline-offset-0 focus:outline-indigo-500 aria-invalid:border-red-500"
         />
+        {errors.ownerName ? (
+          <p
+            id="ownerName-error"
+            role="alert"
+            className="mt-2 text-base font-semibold text-red-700"
+          >
+            {errors.ownerName}
+          </p>
+        ) : null}
       </div>
 
       <div>
@@ -82,15 +103,27 @@ export function RegisterForm() {
         <input
           id="email"
           name="email"
-          type="text"
+          type="email"
           value={email}
           onChange={(changeEvent) => setEmail(changeEvent.target.value)}
           placeholder="priya.sharma@example.com"
-          className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-2 focus:outline-offset-0 focus:outline-indigo-500"
+          aria-invalid={errors.email ? true : undefined}
+          aria-describedby={errors.email ? 'email-error' : 'email-hint'}
+          className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-2 focus:outline-offset-0 focus:outline-indigo-500 aria-invalid:border-red-500"
         />
-        <p className="mt-2 text-sm text-slate-500">
-          We will send the appointment confirmation here.
-        </p>
+        {errors.email ? (
+          <p
+            id="email-error"
+            role="alert"
+            className="mt-2 text-base font-semibold text-red-700"
+          >
+            {errors.email}
+          </p>
+        ) : (
+          <p id="email-hint" className="mt-2 text-sm text-slate-500">
+            We will send the appointment confirmation here.
+          </p>
+        )}
       </div>
 
       <div>
@@ -107,8 +140,19 @@ export function RegisterForm() {
           value={petName}
           onChange={(changeEvent) => setPetName(changeEvent.target.value)}
           placeholder="Mochi"
-          className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-2 focus:outline-offset-0 focus:outline-indigo-500"
+          aria-invalid={errors.petName ? true : undefined}
+          aria-describedby={errors.petName ? 'petName-error' : undefined}
+          className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-2 focus:outline-offset-0 focus:outline-indigo-500 aria-invalid:border-red-500"
         />
+        {errors.petName ? (
+          <p
+            id="petName-error"
+            role="alert"
+            className="mt-2 text-base font-semibold text-red-700"
+          >
+            {errors.petName}
+          </p>
+        ) : null}
       </div>
 
       <button
