@@ -42,39 +42,45 @@ export default function SchedulePage() {
                   )}
                 </div>
 
-                <ul className="mt-5 space-y-3">
-                  {appointments.map((appointment) => {
-                    const patient = findPatient(appointment.patientSlug);
+                {appointments.length === 0 ? (
+                  <p className="mt-5 text-lg text-slate-600">
+                    No appointments booked yet.
+                  </p>
+                ) : (
+                  <ul className="mt-5 space-y-3">
+                    {appointments.map((appointment) => {
+                      const patient = findPatient(appointment.patientSlug);
 
-                    return (
-                      <li
-                        key={appointment.id}
-                        className="flex flex-wrap items-center gap-4 rounded-xl bg-slate-50 px-4 py-3"
-                      >
-                        <span aria-hidden="true" className="text-3xl">
-                          {patient?.emoji ?? '❓'}
-                        </span>
-                        <div className="min-w-40">
-                          <Link
-                            href={`/patients/${appointment.patientSlug}`}
-                            className="text-lg font-bold text-slate-900 underline decoration-slate-300 decoration-2 underline-offset-4 hover:decoration-indigo-500"
-                          >
-                            {patient?.name ?? 'Unknown patient'}
-                          </Link>
-                          <p className="text-base text-slate-600">
-                            {appointment.reason}
-                          </p>
-                        </div>
-                        <div className="ml-auto flex flex-wrap items-center gap-2">
-                          {patient ? <SpeciesBadge species={patient.species} /> : null}
-                          <Badge tone="neutral">
-                            {findVet(appointment.vetId)?.name ?? 'Unassigned'}
-                          </Badge>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                      return (
+                        <li
+                          key={appointment.id}
+                          className="flex flex-wrap items-center gap-4 rounded-xl bg-slate-50 px-4 py-3"
+                        >
+                          <span aria-hidden="true" className="text-3xl">
+                            {patient?.emoji ?? '❓'}
+                          </span>
+                          <div className="min-w-40">
+                            <Link
+                              href={`/patients/${appointment.patientSlug}`}
+                              className="text-lg font-bold text-slate-900 underline decoration-slate-300 decoration-2 underline-offset-4 hover:decoration-indigo-500"
+                            >
+                              {patient?.name ?? 'Unknown patient'}
+                            </Link>
+                            <p className="text-base text-slate-600">
+                              {appointment.reason}
+                            </p>
+                          </div>
+                          <div className="ml-auto flex flex-wrap items-center gap-2">
+                            {patient ? <SpeciesBadge species={patient.species} /> : null}
+                            <Badge tone="neutral">
+                              {findVet(appointment.vetId)?.name ?? 'Unassigned'}
+                            </Badge>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </CardBody>
             </Card>
           );
