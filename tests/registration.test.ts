@@ -18,6 +18,12 @@ describe('isValidEmail', () => {
     expect(isValidEmail('priya sharma@example.com')).toBe(false);
   });
 
+  it('rejects an otherwise valid address padded with surrounding whitespace', () => {
+    expect(isValidEmail(' priya@example.com ')).toBe(false);
+    expect(isValidEmail('priya@example.com ')).toBe(false);
+    expect(isValidEmail(' priya@example.com')).toBe(false);
+  });
+
   it('rejects an empty string', () => {
     expect(isValidEmail('')).toBe(false);
     expect(isValidEmail('   ')).toBe(false);
@@ -39,6 +45,18 @@ describe('validateRegistration', () => {
     const errors = validateRegistration({
       ownerName: 'Priya Sharma',
       email: 'asdasd',
+      petName: 'Mochi',
+    });
+
+    expect(errors.email).toBeDefined();
+    expect(errors.ownerName).toBeUndefined();
+    expect(errors.petName).toBeUndefined();
+  });
+
+  it('rejects an email padded with surrounding whitespace', () => {
+    const errors = validateRegistration({
+      ownerName: 'Priya Sharma',
+      email: ' priya.sharma@example.com ',
       petName: 'Mochi',
     });
 

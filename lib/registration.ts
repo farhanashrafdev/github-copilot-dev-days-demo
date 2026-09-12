@@ -28,12 +28,14 @@ export type RegistrationErrors = {
  * It is not a full RFC 5322 parser and does not try to be.
  */
 export function isValidEmail(value: string): boolean {
-  const trimmed = value.trim();
-  if (trimmed.length === 0) {
+  if (value.length === 0) {
     return false;
   }
 
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+  // Deliberately test the value as-is rather than a trimmed copy: the regex
+  // forbids whitespace, so surrounding spaces make the address invalid instead
+  // of being silently accepted.
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 /**
