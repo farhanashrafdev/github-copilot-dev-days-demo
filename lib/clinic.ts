@@ -72,6 +72,18 @@ export const PATIENTS: Patient[] = [
     emoji: '🐈‍⬛', accent: 'from-sky-500 to-blue-600',
     notes: 'Arthritis management. Prefers the quiet consulting room.',
   },
+  {
+    id: 'pat_rufus', slug: 'rufus', name: 'Rufus', species: 'dog',
+    breed: 'Border Collie', ageYears: 3, weightKg: 18.6, ownerName: 'Elena Rossi',
+    emoji: '🐕', accent: 'from-lime-500 to-green-600',
+    notes: 'Second consulting room only. No signed-off dosage figure yet for dogs.',
+  },
+  {
+    id: 'pat_nala', slug: 'nala', name: 'Nala', species: 'dog',
+    breed: 'Dachshund', ageYears: 7, weightKg: 8.9, ownerName: 'Samuel Okafor',
+    emoji: '🐩', accent: 'from-yellow-500 to-amber-600',
+    notes: 'Back pain review. Keep away from the feline waiting area.',
+  },
 ];
 
 /**
@@ -88,6 +100,7 @@ export const APPOINTMENTS: Appointment[] = [
   { id: 'apt_003', patientSlug: 'olive', vetId: 'vet_ada', time: '10:00', reason: 'Second kitten vaccination' },
   { id: 'apt_004', patientSlug: 'tofu', vetId: 'vet_ada', time: '10:30', reason: 'Arthritis review' },
   { id: 'apt_005', patientSlug: 'yuzu', vetId: 'vet_bo', time: '11:00', reason: 'Microchip and weight check' },
+  { id: 'apt_006', patientSlug: 'rufus', vetId: 'vet_bo', time: '09:30', reason: 'New patient examination' },
 ];
 
 export function findPatient(slug: string): Patient | undefined {

@@ -1,5 +1,5 @@
 /**
- * Domain types for Whiskers & Co., a cat-only veterinary clinic.
+ * Domain types for Whiskers & Co., a small-animal veterinary clinic.
  *
  * This is a front-end demonstration application. There is no database and no
  * API: every page renders from the static data in `lib/clinic.ts`.
@@ -8,22 +8,29 @@
 /**
  * The species this clinic is able to treat.
  *
- * Whiskers & Co. is feline-only. Parts of the system are calibrated for cats
- * specifically — most importantly the medication dosage figures in
- * `lib/dosage.ts`. Widening this type is not, on its own, enough to make the
- * clinic safe for another species.
+ * Parts of the system are calibrated per species — most importantly the
+ * medication dosage figures in `lib/dosage.ts`. Widening this type is not, on
+ * its own, enough to make the clinic safe for another species: each species
+ * needs its own veterinarian sign-off before a dose can be produced for it.
  */
-export type Species = 'cat';
+export type Species = 'cat' | 'dog';
 
-export const SUPPORTED_SPECIES: readonly Species[] = ['cat'] as const;
+export const SUPPORTED_SPECIES: readonly Species[] = ['cat', 'dog'] as const;
 
 export const SPECIES_LABELS: Record<Species, string> = {
   cat: 'Cat',
+  dog: 'Dog',
 };
 
 export const SPECIES_EMOJI: Record<Species, string> = {
   cat: '🐈',
+  dog: '🐕',
 };
+
+/** Narrows arbitrary input, such as a form value, to a species we accept. */
+export function isSupportedSpecies(value: string): value is Species {
+  return SUPPORTED_SPECIES.includes(value as Species);
+}
 
 export type Patient = {
   id: string;

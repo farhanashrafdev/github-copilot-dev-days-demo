@@ -31,6 +31,19 @@ describe('dosageGuidance', () => {
   });
 
   /**
+   * Dogs are accepted as patients but have no veterinarian-signed-off figure.
+   * Refusing is the required behaviour until one exists.
+   */
+  it('refuses dogs, which have no signed-off figure yet', () => {
+    const guidance = dosageGuidance('dog', 18.6);
+
+    expect(guidance.available).toBe(false);
+    if (!guidance.available) {
+      expect(guidance.reason).toContain('No signed-off dosage figure');
+    }
+  });
+
+  /**
    * Guards the clinical safety rule: a species with no signed-off figure must
    * be refused outright, never given another species' dose. The cast simulates
    * a species reaching this function before a figure has been signed off for it.
