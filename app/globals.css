@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+/*
+ * This application is projected in conference rooms. The base font size is
+ * deliberately larger than a normal web app, and contrast is deliberately high.
+ * Do not reduce either without checking it from the back of a room.
+ */
+
+@theme {
+  --color-ink: oklch(0.19 0.02 275);
+  --color-ink-soft: oklch(0.32 0.02 275);
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
