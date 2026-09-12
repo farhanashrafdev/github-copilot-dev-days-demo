@@ -26,7 +26,11 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # `npm install` rather than `npm ci`: the lockfile is generated on Windows
+        # and Tailwind v4's optional wasm fallback packages do not resolve
+        # identically on Linux. `npm ci` refuses; `npm install` reconciles and is
+        # still fast because the npm cache is restored above.
+        run: npm install --no-audit --no-fund
 
       - name: Lint
         run: npm run lint
