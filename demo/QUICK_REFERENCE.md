@@ -7,21 +7,19 @@ Repo: `farhanashrafdev/github-copilot-dev-days-demo` (private)
 1. Slides
 2. Repo → Code
 3. `github.com/copilot`
-4. **Issue #3** — Registration form accepts any text as an email address
-5. **PR #6** — Centre the homepage sections *(our fix, for Copilot to review)*
-6. Vercel preview URL of PR #6
-7. Production site
-8. [Agent Lab](https://copilot-dev-days.github.io/agent-lab-python/)
+4. Current issue / PR for the restaurant rebuild
+5. Vercel preview URL of that PR
+6. Production site
+7. [Agent Lab](https://copilot-dev-days.github.io/agent-lab-python/)
 
-## The issues
+## Current app routes
 
-| # | Title | Who fixes it |
-|---|---|---|
-| 1 | The website is missing that we do CT scans for cats | spare |
-| 2 | Homepage content is not centred | **we did** → PR #6 |
-| 3 | Registration form accepts any text as an email address | **Copilot, live** |
-| 4 | Support dogs, not just cats | the "merge the dog" one |
-| 5 | Empty appointment slots render as a blank card | spare |
+| Route | What to show |
+|---|---|
+| `/` | Hero, highlighted dishes, placeholder hours |
+| `/menu` | Full menu grouped by category |
+| `/reserve` | Client-side reservation form validation |
+| `/contact` | Placeholder address, phone, email, and opening hours |
 
 ## Step 1 — Explore the repo with Copilot
 
@@ -33,9 +31,10 @@ What does it do, how is it structured, and what would you investigate first
 before changing it?
 ```
 
-## Step 2 — Hand issue #3 to the agent
+## Step 2 — Hand the current issue to the agent
 
-Open **Issue #3** → right sidebar → **Assignees** → **Copilot** → **Assign**.
+Open the active issue → right sidebar → **Assignees** → **Copilot** →
+**Assign**.
 
 Leave the optional prompt empty. Say out loud:
 
@@ -50,41 +49,27 @@ Open `.github/copilot-instructions.md`. Highlight:
 
 - Forms must validate user input and show a clear message next to the field
 - Any bug fix needs a test that fails before the fix
-- Clinical safety: never invent a dosage figure
+- Business data safety: keep the site front-end only and keep placeholders clear
 
 > "Everyone can buy Copilot. The differentiator is how well you've encoded how
 > your engineering organisation thinks."
 
 ## Step 4 — Copilot reviews OUR code
 
-Open **PR #6** → **Reviewers** → **Copilot** → **Request**. Under 30 seconds.
+Open the current PR → **Reviewers** → **Copilot** → **Request**. Under 30
+seconds.
 
 > "Copilot wrote code for us. Now — should Copilot review Copilot? Why not review
 > me instead."
 
-**It has already run once, and it found two things. Both are correct:**
+Use the review to talk about:
 
-1. **Medium — the selector is too broad.** `section > div` applies a layout rule
-   to every section on every page instead of the element that needs it. It quotes
-   the project standard from `.github/copilot-instructions.md`.
-2. **Medium — the fix does not actually work.** Three of the four homepage
-   sections carry `max-w-6xl` on the `<section>` itself, so centring their inner
-   `div` changes nothing. The page is still left-aligned.
-
-**This is your best moment in the talk.** Do this:
-
-- Read finding 2 aloud.
-- Open the PR #6 preview URL. **It is still lopsided.**
-- Say:
-
-> "CI was green. Four checks passed. The diff looked completely reasonable. And
-> my fix does not work — it told me so before I shipped it. That is the point.
-> Agents made writing code cheap. They did not make judgement optional."
-
-Then point at finding 1:
-
-> "And this one it only knows because the repository told it what our standard is.
-> That line came out of `copilot-instructions.md`."
+1. **Correctness** — does the app now match the restaurant brief?
+2. **Frontend quality** — accessible focus styles, readable text, scoped
+   Tailwind utilities
+3. **Tests** — menu, hours, pricing, and reservation validation
+4. **Business data safety** — no backend, no fake persistence, placeholders stay
+   explicit
 
 ## Step 5 — Back to the agent's PR
 
@@ -94,19 +79,19 @@ On Copilot's PR:
    agent's push until a human with write access allows it.
 2. Watch lint · typecheck · test · build go green (~1 min)
 3. Open the **Vercel preview URL**
-4. Go to `/register`, type `asdasd` in the email field, press Register →
-   it is now rejected
+4. Go to `/reserve`, submit invalid fields, and confirm the page shows specific
+   inline error messages
 5. Merge → production updates
 
 > "Don't tell me your code works. Give me the URL."
 
-## Step 6 — The dog (if you have time)
+## Step 6 — Placeholder swap (if you have time)
 
-Show **Issue #4**. Point at `lib/dosage.ts`:
+Point at `lib/restaurant.ts`:
 
-> "The clinic has a signed-off medication figure for cats. Not for dogs. Watch
-> whether the agent invents one or stops and asks. That difference is the whole
-> reason a human still reviews this."
+> "The branding, address, phone number, email address, hours, and menu are all
+> static placeholders. The owner can replace them without changing the app
+> structure."
 
 ## Recovery
 

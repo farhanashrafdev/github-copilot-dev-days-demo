@@ -22,33 +22,44 @@ Always run `npm run verify` before reporting a task as complete.
 ```
 app/                    routes (App Router). Server Components by default.
   page.tsx              homepage
-  patients/             patient list and patient detail
-  register/             new patient registration form
-  schedule/             clinic day schedule
+  menu/                 full menu
+  reserve/              browser-only reservation request form
+  contact/              address, contact details, opening hours
 components/             presentational components
   ui/                   Badge, Card primitives
 lib/
-  clinic.ts             ALL clinic data (static constants) + pure helpers
-  dosage.ts             medication figures — see "Clinical safety"
-  format.ts             date and pluralisation helpers
-  types.ts              domain types, including `Species`
+  restaurant.ts         ALL restaurant data (static constants) + pure helpers
+  reservation.ts        reservation validation helpers
+  format.ts             formatting helpers
 tests/                  vitest unit tests
 ```
 
 ## Things that are intentional — do not "fix" them
 
-- **There is no database, API or backend.** Data is static in `lib/clinic.ts`.
+- **There is no database, API or backend.** Data is static in `lib/restaurant.ts`.
   This keeps every Vercel preview deployment self-contained and instant.
-- **`lib/dosage.ts` only has a figure for cats.** That is a clinical constraint,
-  not an oversight. Read the "Clinical safety" section of
-  `.github/copilot-instructions.md` before touching it.
-- **Times and dates are hard-coded and formatted in UTC** so the rendered output
-  is identical everywhere. Do not switch to `new Date()` or local time.
+- **There is no live booking system.** The reservation form is browser-only and
+  should not imply that a request was persisted or sent anywhere.
+- **Restaurant details are placeholders.** Name, address, phone, email, hours,
+  and menu copy should stay obviously replaceable until the owner provides real
+  business content.
+- **Time-based helpers should stay explicit and testable.** If you add date or
+  time logic, prefer deterministic UTC-based helpers for unit tests.
 - **The base font size is larger than usual.** The site is projected on stage.
 
 ## Conventions
 
 - Import from within the project using the `@/` alias, for example
-  `import { PATIENTS } from '@/lib/clinic'`.
+  `import { RESTAURANT } from '@/lib/restaurant'`.
 - Keep components small and give them one job.
 - Prefer adding a Tailwind utility class over writing CSS.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

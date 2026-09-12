@@ -24,8 +24,8 @@ your Vercel account — including you, if you open it in a different browser
 profile, and including the room if you put a QR code on screen.
 
 Turning it off is safe **for this repository specifically**: the app is
-front-end only, contains no secrets, and every patient and clinical figure is
-synthetic demo data. Do not treat this as general advice for a real project.
+front-end only, contains no secrets, and every restaurant detail is placeholder
+demo data. Do not treat this as general advice for a real project.
 
 If you would rather leave protection on, generate a **Sharable Link** for the
 demo PR in advance and put that in `demo/QUICK_REFERENCE.md` instead of the

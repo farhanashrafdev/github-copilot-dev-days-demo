@@ -1,12 +1,12 @@
-# Whiskers & Co. — engineering standards
+# The Copper Spoon — engineering standards
 
-Whiskers & Co. is a cat-only veterinary clinic website. This file tells Copilot
-how this team expects work to be done here. Keep changes small and reviewable.
+The Copper Spoon is a front-end restaurant website. This file tells Copilot how
+this team expects work to be done here. Keep changes small and reviewable.
 
 ## What this project is
 
 A front-end only Next.js App Router application. There is no database, no API
-and no authentication. Every page renders from the static data in `lib/clinic.ts`.
+and no authentication. Every page renders from static data in `lib/`.
 Do not introduce a database, an ORM, an API route or a backend service.
 
 ## Stack
@@ -38,19 +38,18 @@ Do not introduce a database, an ORM, an API route or a backend service.
 - Tests live in `tests/` and must stay fast. The whole suite runs in under a
   second and is executed live during presentations.
 
-## Clinical safety
+## Business data safety
 
 This is the one rule in this repository that is not negotiable.
 
-- `lib/dosage.ts` contains medication figures that were signed off by a named
-  veterinarian for one specific species. Do not add, change, interpolate or
-  estimate a clinical figure for any species.
-- If a new species is introduced, `lib/dosage.ts` must refuse to produce a dose
-  for it until a veterinarian has signed off a figure. Refusing is correct
-  behaviour. Falling back to another species' figure is not.
-- If you are an agent and a task appears to require a new clinical value, stop,
-  leave the gap visible, and say in your pull request that it needs human
-  clinical review.
+- Keep the site front-end only. Do not add a database, API route, auth flow,
+  payment flow, or backend reservation system to make the demo feel "real".
+- Restaurant branding, address, phone number, email address, opening hours, and
+  menu entries may be placeholders. Keep them clearly static and avoid implying
+  that a reservation has been stored or confirmed by a real system.
+- If a task needs real business details that were not provided, leave clear
+  placeholders in the UI and say in your pull request that the owner must
+  replace them.
 
 ## Pull requests
 
@@ -68,6 +67,7 @@ When reviewing a pull request in this repository, structure the review as:
 2. **Frontend quality** — accessibility, focus states, responsive behaviour, and
    whether styling is scoped to the element that needs it.
 3. **Tests** — is the change covered, and would the test have caught the bug?
-4. **Clinical safety** — flag any change to `lib/dosage.ts` or to `Species`.
+4. **Business data safety** — flag any change that introduces backend behaviour,
+   hides placeholder data, or implies real reservation persistence.
 
 Label each finding with a severity of High, Medium or Low.

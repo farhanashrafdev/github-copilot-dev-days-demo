@@ -1,23 +1,27 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { OPENING_HOURS, RESTAURANT } from '@/lib/restaurant';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Whiskers & Co. — Cat Clinic',
-  description:
-    'A feline-only veterinary clinic. Patients, appointments and clinical guidance.',
+  title: `${RESTAURANT.name} — ${RESTAURANT.tagline}`,
+  description: RESTAURANT.description,
 };
 
 const NAV = [
   { href: '/', label: 'Home' },
-  { href: '/patients', label: 'Patients' },
-  { href: '/schedule', label: 'Schedule' },
-  { href: '/register', label: 'Register' },
+  { href: '/menu', label: 'Menu' },
+  { href: '/reserve', label: 'Reserve' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const hoursSummary = OPENING_HOURS.filter((hours) => hours.summary !== 'Closed')
+    .map((hours) => `${hours.day}: ${hours.summary}`)
+    .join(' · ');
+
   return (
     <html lang="en">
       <body>
@@ -30,17 +34,15 @@ export default function RootLayout({
 
         <header className="border-b border-slate-200 bg-white">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-5">
-            <Link href="/" className="flex items-center gap-3">
-              <span aria-hidden="true" className="text-3xl">
-                🐈
+            <Link
+              href="/"
+              className="rounded-lg focus:outline-2 focus:outline-offset-4 focus:outline-indigo-600"
+            >
+              <span className="block text-xl leading-tight font-bold tracking-tight text-slate-900">
+                {RESTAURANT.name}
               </span>
-              <span>
-                <span className="block text-xl leading-tight font-bold tracking-tight text-slate-900">
-                  Whiskers &amp; Co.
-                </span>
-                <span className="block text-sm font-medium text-slate-500">
-                  Cat Clinic
-                </span>
+              <span className="block text-sm font-medium text-slate-500">
+                {RESTAURANT.tagline}
               </span>
             </Link>
 
@@ -50,7 +52,7 @@ export default function RootLayout({
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="rounded-lg px-4 py-2 text-base font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                      className="rounded-lg px-4 py-2 text-base font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
                     >
                       {item.label}
                     </Link>
@@ -66,11 +68,28 @@ export default function RootLayout({
         <footer className="mt-20 border-t border-slate-200 bg-white">
           <div className="mx-auto max-w-6xl px-6 py-10 text-sm text-slate-500">
             <p className="font-semibold text-slate-700">
-              Whiskers &amp; Co. Cat Clinic
+              {RESTAURANT.name}
             </p>
-            <p className="mt-1">
-              A fictional clinic. All patients, owners and clinical figures are
-              synthetic demo data.
+            <p className="mt-1">{RESTAURANT.address}</p>
+            <p className="mt-2 text-sm leading-relaxed">
+              Placeholder restaurant branding, contact details, opening hours, and
+              menu items for the owner to replace before launch.
+            </p>
+            <p className="mt-2 text-sm leading-relaxed">{hoursSummary}</p>
+            <p className="mt-2">
+              <a
+                href={`tel:${RESTAURANT.phone}`}
+                className="rounded focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
+              >
+                {RESTAURANT.phone}
+              </a>{' '}
+              ·{' '}
+              <a
+                href={`mailto:${RESTAURANT.email}`}
+                className="rounded focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
+              >
+                {RESTAURANT.email}
+              </a>
             </p>
           </div>
         </footer>
