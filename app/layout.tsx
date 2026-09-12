@@ -3,9 +3,9 @@ import Link from 'next/link';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Whiskers & Co. — Cat Clinic',
+  title: 'Whiskers & Co. — Cat & Dog Clinic',
   description:
-    'A feline-only veterinary clinic. Patients, appointments and clinical guidance.',
+    'A veterinary clinic for cats and dogs. Patients, appointments and clinical guidance.',
 };
 
 const NAV = [
@@ -39,7 +39,7 @@ export default function RootLayout({
                   Whiskers &amp; Co.
                 </span>
                 <span className="block text-sm font-medium text-slate-500">
-                  Cat Clinic
+                  Cat &amp; Dog Clinic
                 </span>
               </span>
             </Link>
@@ -66,7 +66,7 @@ export default function RootLayout({
         <footer className="mt-20 border-t border-slate-200 bg-white">
           <div className="mx-auto max-w-6xl px-6 py-10 text-sm text-slate-500">
             <p className="font-semibold text-slate-700">
-              Whiskers &amp; Co. Cat Clinic
+              Whiskers &amp; Co. Cat &amp; Dog Clinic
             </p>
             <p className="mt-1">
               A fictional clinic. All patients, owners and clinical figures are

@@ -2,10 +2,14 @@
 
 import { useState } from 'react';
 
+import { SPECIES_EMOJI, SPECIES_LABELS, SUPPORTED_SPECIES } from '@/lib/types';
+import type { Species } from '@/lib/types';
+
 type Submission = {
   ownerName: string;
   email: string;
   petName: string;
+  species: Species;
 };
 
 /**
@@ -19,11 +23,12 @@ export function RegisterForm() {
   const [ownerName, setOwnerName] = useState('');
   const [email, setEmail] = useState('');
   const [petName, setPetName] = useState('');
+  const [species, setSpecies] = useState<Species>('cat');
   const [submission, setSubmission] = useState<Submission | null>(null);
 
   function handleSubmit(formEvent: React.FormEvent<HTMLFormElement>) {
     formEvent.preventDefault();
-    setSubmission({ ownerName, email, petName });
+    setSubmission({ ownerName, email, petName, species });
   }
 
   if (submission) {
@@ -36,7 +41,8 @@ export function RegisterForm() {
           🎉
         </p>
         <h2 className="mt-4 text-2xl font-bold text-emerald-900">
-          {submission.petName} is registered
+          {submission.petName} is registered as a{' '}
+          {SPECIES_LABELS[submission.species].toLowerCase()}
         </h2>
         <p className="mt-2 text-lg text-emerald-800">
           We have sent a confirmation to {submission.email}.
@@ -98,7 +104,7 @@ export function RegisterForm() {
           htmlFor="petName"
           className="block text-base font-semibold text-slate-900"
         >
-          Your cat&apos;s name
+          Your pet&apos;s name
         </label>
         <input
           id="petName"
@@ -110,6 +116,31 @@ export function RegisterForm() {
           className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-2 focus:outline-offset-0 focus:outline-indigo-500"
         />
       </div>
+
+      <fieldset>
+        <legend className="block text-base font-semibold text-slate-900">
+          Species
+        </legend>
+        <div className="mt-2 flex flex-wrap gap-3">
+          {SUPPORTED_SPECIES.map((supported) => (
+            <label
+              key={supported}
+              className="flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 has-checked:border-indigo-500 has-checked:bg-indigo-50 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-indigo-600"
+            >
+              <input
+                type="radio"
+                name="species"
+                value={supported}
+                checked={species === supported}
+                onChange={() => setSpecies(supported)}
+                className="size-5 accent-indigo-600"
+              />
+              <span aria-hidden="true">{SPECIES_EMOJI[supported]}</span>
+              <span>{SPECIES_LABELS[supported]}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <button
         type="submit"

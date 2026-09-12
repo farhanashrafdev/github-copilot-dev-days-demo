@@ -8,10 +8,18 @@ import {
   findVet,
   slotOccupancy,
 } from '@/lib/clinic';
+import { SUPPORTED_SPECIES } from '@/lib/types';
 
 describe('clinic data', () => {
-  it('registers every patient as a cat', () => {
-    expect(PATIENTS.every((patient) => patient.species === 'cat')).toBe(true);
+  it('only registers patients of a supported species', () => {
+    expect(
+      PATIENTS.every((patient) => SUPPORTED_SPECIES.includes(patient.species)),
+    ).toBe(true);
+  });
+
+  it('has both cat and dog patients', () => {
+    expect(PATIENTS.some((patient) => patient.species === 'cat')).toBe(true);
+    expect(PATIENTS.some((patient) => patient.species === 'dog')).toBe(true);
   });
 
   it('gives every patient a unique slug', () => {

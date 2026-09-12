@@ -6,8 +6,8 @@ export default function RegisterPage() {
     <div className="mx-auto max-w-3xl px-6 py-16">
       <SectionHeading
         eyebrow="New patients"
-        title="Register your cat"
-        description="Tell us who you are and who we will be treating. We will confirm by email."
+        title="Register your pet"
+        description="Tell us who you are, who we will be treating, and which species. We will confirm by email."
       />
 
       <Card>

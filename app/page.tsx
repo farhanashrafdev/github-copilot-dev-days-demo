@@ -46,12 +46,13 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl">
-              A clinic built entirely around cats.
+              A clinic built around cats and dogs.
             </h1>
             <p className="mt-6 text-xl leading-relaxed text-indigo-100">
-              No barking in the waiting room. No shared consulting rooms. Every
-              protocol, every dosage figure and every appointment slot at
-              Whiskers &amp; Co. is calibrated for feline patients.
+              Two consulting rooms, kept separate so cats and dogs never share
+              a waiting space. Every protocol and every dosage figure at
+              Whiskers &amp; Co. is calibrated per species, never carried over
+              from one to another.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -59,7 +60,7 @@ export default function HomePage() {
                 href="/register"
                 className="rounded-xl bg-white px-6 py-3.5 text-lg font-bold text-indigo-700 shadow-lg transition hover:bg-indigo-50 focus:outline-2 focus:outline-offset-2 focus:outline-white"
               >
-                Register your cat
+                Register your pet
               </Link>
               <Link
                 href="/patients"
@@ -75,8 +76,8 @@ export default function HomePage() {
       <section className="max-w-6xl px-6 py-16">
         <SectionHeading
           eyebrow="What we do"
-          title="Feline-only veterinary care"
-          description="A small team, a quiet building, and clinical protocols written for one species."
+          title="Veterinary care for cats and dogs"
+          description="A small team, a quiet building, and clinical protocols written per species."
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((service) => (

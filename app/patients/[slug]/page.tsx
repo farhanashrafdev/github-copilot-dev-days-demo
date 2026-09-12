@@ -115,7 +115,7 @@ export default async function PatientDetailPage({
                 href="/register"
                 className="mt-5 inline-block rounded-xl bg-indigo-600 px-5 py-3 text-base font-bold text-white transition hover:bg-indigo-700 focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
               >
-                Register your cat
+                Register your pet
               </Link>
             </CardBody>
           </Card>
