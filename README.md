@@ -3,13 +3,15 @@
 A small, deliberately simple demo repository for a GitHub Copilot Dev Days
 keynote. It exists to show one thing:
 
-> You can take an issue, hand it to an agent, get a pull request, see it deployed
-> to a preview URL, have it reviewed, and merge it — without opening an editor.
+> You can take an issue, hand it to an agent, get a pull request, see it
+> deployed to a preview URL, have it reviewed, and merge it — without opening
+> an editor.
 
-The application is **Whiskers & Co.**, a cat-only veterinary clinic website.
-It is front-end only on purpose: no database, no API, no authentication. That
-keeps every preview deployment instant and self-contained, so the demo is about
-the workflow rather than about infrastructure.
+The application is now **The Copper Spoon**, a placeholder restaurant website.
+It is front-end only on purpose: no database, no API, no authentication. Menu
+content, opening hours, and reservation messaging all come from static files in
+`lib/`. That keeps every preview deployment instant and self-contained, so the
+demo is about the workflow rather than about infrastructure.
 
 ## The demo loop
 
@@ -34,18 +36,16 @@ A human fixes an issue
    → Copilot reviews the human's code
 ```
 
-## The seeded issues
+## What the app contains
 
-The repository ships with a small backlog of real, self-contained problems. Each
-one is visible in the browser within a couple of clicks, and each one is small
-enough for an agent to finish.
+- **Home** — hero copy, highlighted dishes, and opening-hours summary
+- **Menu** — a static typed menu grouped by category
+- **Reserve** — a browser-only reservation request form with client-side
+  validation and no backend submission
+- **Contact** — placeholder address, phone, email, and opening hours
 
-| Issue | What you see | Good for |
-|---|---|---|
-| Homepage content is not centred | The homepage hugs the left edge while every other page is centred | A human fix that Copilot then reviews |
-| Registration form accepts any text as an email | Type `asdasd` into the email field and it registers you | A clean Copilot fix |
-| Support dogs, not just cats | The clinic is cat-only everywhere in the UI and the type system | A larger Copilot task with a real constraint |
-| Empty appointment slots render as a blank card | Slots with no bookings show nothing at all | A small warm-up task |
+All restaurant branding, menu items, and contact details are placeholders for
+the owner to replace before launch.
 
 ## Running it
 
@@ -59,17 +59,16 @@ npm run verify   # lint + typecheck + test + build
 
 | File | Purpose |
 |---|---|
-| `.github/copilot-instructions.md` | The team's engineering standards, including one hard clinical-safety rule |
+| `.github/copilot-instructions.md` | The team's engineering standards for this front-end-only restaurant app |
 | `AGENTS.md` | Operational notes: commands, repository map, and what not to "fix" |
 | `.github/agents/frontend-reviewer.agent.md` | A read-only custom agent that reviews front-end changes adversarially |
 | `.github/workflows/ci.yml` | Lint, typecheck, test and build on every pull request |
 | `.github/workflows/copilot-setup-steps.yml` | Pre-installs dependencies in the agent's environment so it starts faster |
 
-There is one rule in `.github/copilot-instructions.md` worth reading before you
-watch a demo: `lib/dosage.ts` holds medication figures signed off by a named
-veterinarian for cats only. An agent asked to "support dogs" runs straight into
-it. Whether it invents a number or stops and asks is the most interesting thing
-that happens in the whole talk.
+There is still one important rule in `.github/copilot-instructions.md` worth
+reading before you watch a demo: keep the site front-end only. Do not sneak in
+a database, API, authentication, or a fake backend booking flow when static
+data and browser-only interactions are the point of the exercise.
 
 ## Stage documentation
 
@@ -90,5 +89,5 @@ what the finished loop feels like, quickly, on a projector.
 
 ---
 
-Whiskers & Co. is fictional. Every patient, owner and clinical figure in this
-repository is synthetic demo data.
+The Copper Spoon is fictional. Every menu item, address, phone number, email
+address, and opening hour in this repository is placeholder demo data.
