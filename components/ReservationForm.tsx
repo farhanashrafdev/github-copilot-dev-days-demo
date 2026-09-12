@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { formatReservationDate, formatReservationTime } from '@/lib/format';
 import type { ReservationFormValues, ReservationValidationErrors } from '@/lib/reservation';
 import { validateReservation } from '@/lib/reservation';
 
@@ -105,8 +106,9 @@ export function ReservationForm() {
         </h2>
         <p className="mt-3 text-lg text-emerald-800">
           Thanks, {submission.name}. Your placeholder request for {submission.partySize}{' '}
-          guests on {submission.date} at {submission.time} is ready for the owner to
-          wire into a real booking workflow later.
+          guests on {formatReservationDate(submission.date)} at{' '}
+          {formatReservationTime(submission.time)} is ready for the owner to wire
+          into a real booking workflow later.
         </p>
         <button
           type="button"
@@ -174,7 +176,7 @@ export function ReservationForm() {
             className={inputClassName('phone')}
           />
           <p id="phone-hint" className="mt-2 text-sm text-slate-500">
-            Include enough digits for us to call you back.
+            Use a number with at least 10 digits, including spaces or country code if needed.
           </p>
           <FieldError field="phone" errors={errors} />
         </div>

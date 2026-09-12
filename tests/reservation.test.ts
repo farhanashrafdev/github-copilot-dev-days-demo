@@ -21,6 +21,40 @@ describe('validateReservation', () => {
     ).toEqual({});
   });
 
+  it('accepts an exact opening time and rejects the exact closing time', () => {
+    expect(
+      validateReservation(
+        {
+          name: 'Alex Morgan',
+          email: 'alex@example.com',
+          phone: '+44 20 7946 0123',
+          date: '2026-09-12',
+          time: '12:00',
+          partySize: '4',
+          notes: '',
+        },
+        NOW,
+      ),
+    ).toEqual({});
+
+    expect(
+      validateReservation(
+        {
+          name: 'Alex Morgan',
+          email: 'alex@example.com',
+          phone: '+44 20 7946 0123',
+          date: '2026-09-12',
+          time: '22:00',
+          partySize: '4',
+          notes: '',
+        },
+        NOW,
+      ),
+    ).toEqual({
+      time: 'Choose a time during service hours: 12:00–22:00.',
+    });
+  });
+
   it('returns specific errors for missing required fields', () => {
     expect(
       validateReservation(
