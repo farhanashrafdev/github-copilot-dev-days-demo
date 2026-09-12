@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
 
 /*
  * This application is projected in conference rooms. The base font size is
@@ -17,6 +17,12 @@ html {
 
 body {
   @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+/* Fixes #2 — centre the homepage sections. */
+section > div {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
