@@ -62,14 +62,29 @@ Open **PR #6** → **Reviewers** → **Copilot** → **Request**. Under 30 secon
 > "Copilot wrote code for us. Now — should Copilot review Copilot? Why not review
 > me instead."
 
-**What it should find:** the fix uses a global `section > div` CSS rule. It fixes
-the homepage but reaches into every section on every page. The repo standard is a
-utility class on the element that needs it. If it finds that, you say:
+**It has already run once, and it found two things. Both are correct:**
 
-> "That's a real finding. I wrote that, and it's the kind of thing that fixes one
-> page and quietly breaks another six months later."
+1. **Medium — the selector is too broad.** `section > div` applies a layout rule
+   to every section on every page instead of the element that needs it. It quotes
+   the project standard from `.github/copilot-instructions.md`.
+2. **Medium — the fix does not actually work.** Three of the four homepage
+   sections carry `max-w-6xl` on the `<section>` itself, so centring their inner
+   `div` changes nothing. The page is still left-aligned.
 
-If it finds nothing: *"Apparently Copilot trusts me today."* Move on.
+**This is your best moment in the talk.** Do this:
+
+- Read finding 2 aloud.
+- Open the PR #6 preview URL. **It is still lopsided.**
+- Say:
+
+> "CI was green. Four checks passed. The diff looked completely reasonable. And
+> my fix does not work — it told me so before I shipped it. That is the point.
+> Agents made writing code cheap. They did not make judgement optional."
+
+Then point at finding 1:
+
+> "And this one it only knows because the repository told it what our standard is.
+> That line came out of `copilot-instructions.md`."
 
 ## Step 5 — Back to the agent's PR
 
