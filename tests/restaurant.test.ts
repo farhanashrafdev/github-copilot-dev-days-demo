@@ -37,6 +37,11 @@ describe('isOpenNow', () => {
     expect(isOpenNow(new Date('2026-09-11T18:30:00.000Z'))).toBe(true);
   });
 
+  it('treats opening time as inclusive and closing time as exclusive', () => {
+    expect(isOpenNow(new Date('2026-09-12T12:00:00.000Z'))).toBe(true);
+    expect(isOpenNow(new Date('2026-09-12T22:00:00.000Z'))).toBe(false);
+  });
+
   it('returns false when the restaurant is closed', () => {
     expect(isOpenNow(new Date('2026-09-14T18:30:00.000Z'))).toBe(false);
     expect(isOpenNow(new Date('2026-09-11T22:15:00.000Z'))).toBe(false);

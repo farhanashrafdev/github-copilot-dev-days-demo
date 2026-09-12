@@ -76,8 +76,20 @@ export function ReservationForm() {
 
   function handleSubmit(formEvent: React.FormEvent<HTMLFormElement>) {
     formEvent.preventDefault();
+    const now = new Date();
+    const utcNow = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        now.getUTCHours(),
+        now.getUTCMinutes(),
+        now.getUTCSeconds(),
+        now.getUTCMilliseconds(),
+      ),
+    );
 
-    const nextErrors = validateReservation(values);
+    const nextErrors = validateReservation(values, utcNow);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
